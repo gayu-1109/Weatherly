@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Weatherly</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+
+<body>
+  <main class="app">
+    <h1 class="title">🌦 Live Weather</h1>
+
+    <section class="controls">
+      <div class="search">
+        <input id="cityInput" type="search" placeholder="Enter city (e.g. Mumbai)" aria-label="City name" />
+        <button id="searchBtn" title="Search">Search</button>
+      </div>
+    </section>
+
+    <section id="message" class="message hidden"></section>
+
+    <section id="weatherCard" class="card hidden" aria-live="polite">
+      <div class="top">
+        <div>
+          <h2 id="cityName">City, Country</h2>
+          <p id="description">Clear sky</p>
+        </div>
+        <div id="weatherIcon" class="weather-icon"></div>
+      </div>
+
+      <div class="middle">
+        <p id="temperature">--°C</p>
+        <p id="feels">Feels like --°C</p>
+      </div>
+
+      <div class="bottom">
+        <p id="humidity">Humidity: --%</p>
+        <p id="wind">Wind: -- m/s</p>
+      </div>
+    </section>
+
+    <div class="fore-box">
+      <h3>🌦 5-Day Weather Forecast</h3>
+      <button onclick="getForecast()" class="forecast">Get Forecast</button>
+    </div>
+    <section id="forecast">
+      <div class="forecast-cards" id="forecast-cards"></div>
+    </section>
+
+    <section class="history-box">
+      <h3>Search History</h3>
+      <ul id="historyList" class="history-list"></ul>
+    </section>
+  </main>
+
+  <script src="script.js" defer></script>
+</body>
+
+</html>
