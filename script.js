@@ -1,6 +1,4 @@
-
 const apiKey = "8f1497db9c9400bf03fbe1b106fc4974";
-
 const cityInput = document.getElementById("cityInput");
 const searchBtn = document.getElementById("searchBtn");
 const locBtn = document.getElementById("locBtn");
@@ -18,8 +16,11 @@ const historyList = document.getElementById("historyList");
 document.addEventListener("DOMContentLoaded", () => {
   renderHistory();
   const history = getHistory();
+
   if (history.length) {
     getWeather(history[0]);
+  } else {
+    getWeather("Mumbai");
   }
 });
 
@@ -61,11 +62,13 @@ async function getWeather(city) {
     updateUI(data);
     saveHistory(data.name);
     showMessage("");
+    getForecast(data.name);
   } catch (err) {
     showMessage(err.message || "Error fetching weather.");
     hideCard();
   }
 }
+
 
 async function getWeatherByCoords(lat, lon) {
   try {
@@ -169,13 +172,13 @@ function deleteHistory(city) {
   renderHistory();
 }
 
-async function getForecast() {
-  const city = document.getElementById("cityInput").value;
-  const apiKey = "8f1497db9c9400bf03fbe1b106fc4974";
+async function getForecast(city) {
+  if (!city) return;
   const url = `https://api.openweathermap.org/data/2.5/forecast?q=${city}&appid=${apiKey}&units=metric`;
 
   const response = await fetch(url);
   const data = await response.json();
+  if (!response.ok) return;
 
   const forecastContainer = document.getElementById("forecast-cards");
   forecastContainer.innerHTML = "";
@@ -190,12 +193,12 @@ async function getForecast() {
     const card = document.createElement("div");
     card.classList.add("forecast-card");
     card.innerHTML = `
-          <h4>${dayName}</h4>
-          <p>${date.toLocaleDateString("en-US", options)}</p>
-          <img src="https://openweathermap.org/img/wn/${day.weather[0].icon}@2x.png" alt="weather">
-          <p>${day.weather[0].description}</p>
-          <p>🌡 ${Math.round(day.main.temp)}°C</p>
-        `;
+      <h4>${dayName}</h4>
+      <p>${date.toLocaleDateString("en-US", options)}</p>
+      <img src="https://openweathermap.org/img/wn/${day.weather[0].icon}@2x.png" alt="weather">
+      <p>${day.weather[0].description}</p>
+      <p>🌡 ${Math.round(day.main.temp)}°C</p>
+    `;
     forecastContainer.appendChild(card);
   });
 }
