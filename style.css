@@ -103,8 +103,8 @@ body {
 .top,
 .middle,
 .bottom {
-  padding-left: max(20px, 15%);
-  padding-right: max(20px, 15%);
+  padding-left: max(20px, 10%);
+  padding-right: max(20px, 10%);
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -259,3 +259,4 @@ button:hover {
     gap: 10px;
   }
 }
+
